@@ -1,0 +1,34 @@
+{
+  "name": "remix-course",
+  "version": "1.0.0",
+  "description": "Curso de Remix con proyectos reales",
+  "main": "index.js",
+  "workspaces": [
+    "projects/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "sui-mon commit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chicho69-cesar/learning-remix.git"
+  },
+  "keywords": [
+    "React",
+    "Framework",
+    "Remix",
+    "Remix",
+    "Run",
+    "Tailwind"
+  ],
+  "author": "Cesar Villalobos Olmos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chicho69-cesar/learning-remix/issues"
+  },
+  "homepage": "https://github.com/chicho69-cesar/learning-remix#readme",
+  "dependencies": {
+    "@s-ui/mono": "2.42.0"
+  }
+}
