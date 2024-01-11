@@ -11,6 +11,8 @@ import {
   ScrollRestoration,
 } from '@remix-run/react'
 
+import Header from './components/Header'
+
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
   { rel: 'stylesheet', href: tailwind },
@@ -28,8 +30,10 @@ export default function App() {
       </head>
 
       <body>
+        <Header />
+
         <Outlet />
-        
+
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
