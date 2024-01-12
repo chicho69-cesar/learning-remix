@@ -29,7 +29,7 @@ export default function App() {
         <Links />
       </head>
 
-      <body>
+      <body className='bg-gray-50'>
         <Header />
 
         <Outlet />
