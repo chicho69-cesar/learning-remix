@@ -1,12 +1,13 @@
 import { json, type LoaderFunction, type MetaFunction } from '@remix-run/node'
 import { useLoaderData, useNavigation } from '@remix-run/react'
 
-import response from '~/mock/response.json'
+// import response from '~/mock/response.json'
 import { getCharacters } from '~/graphql/queries.server'
 import type { Characters, Result } from '~/types/api'
 import ListOfCharacters from '~/components/ListOfCharacters'
 import SearchBar from '~/components/SearchBar'
 import { parseCookies } from '~/lib/parse-cookies'
+import Pagination from '~/components/Pagination'
 
 export const meta: MetaFunction = () => {
   return [
@@ -25,8 +26,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   const query = searchParams.get('query') || ''
   const page = Number(searchParams.get('page')) || 1
 
-  // const result = await getCharacters(query, page)
-  const result = response as Characters
+  const result = await getCharacters(query, page)
+  // const result = response as Characters
 
   return json({
     result,
@@ -59,6 +60,13 @@ export default function Index() {
           favorites={favorites}
         />
       )}
+
+      <div className='w-full flex justify-center mt-16'>
+        <Pagination
+          totalPages={result.info.pages}
+          currentPage={page}
+        />
+      </div>
     </>
   )
 }

@@ -25,13 +25,15 @@ export default function Character({ character, isInFavorites }: Props) {
 
   return (
     <article className='relative'>
-      <img
-        src={character.image}
-        alt={character.name}
-        loading='lazy'
-        decoding='async'
-        className='inline-block w-full rounded-2xl'
-      />
+      <picture className='w-full aspect-square'>
+        <img
+          src={character.image}
+          alt={character.name}
+          loading='lazy'
+          decoding='async'
+          className='inline-block w-full rounded-2xl'
+        />
+      </picture>
 
       <header className='absolute p-2 top-0 left-0 w-full flex justify-between gap-4 items-center'>
         <span className={`${pillClasses}`}>
@@ -60,7 +62,6 @@ export default function Character({ character, isInFavorites }: Props) {
           <p className='text-xs my-0.5 text-center'>{character.origin.name}</p>
         </div>
       </section>
-
     </article>
   )
 }

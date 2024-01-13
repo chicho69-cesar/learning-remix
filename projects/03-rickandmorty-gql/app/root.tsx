@@ -16,6 +16,7 @@ import Header from './components/Header'
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
   { rel: 'stylesheet', href: tailwind },
+  { rel: 'icon', type: 'image/png', href: '/favicon.png' },
 ]
 
 export default function App() {
