@@ -2,7 +2,7 @@ import { Link, NavLink } from '@remix-run/react'
 
 export default function Header() {
   return (
-    <header className='w-full p-2 border-b sticky top-0 bg-white backdrop-blur-xl'>
+    <header className='w-full p-2 border-b sticky top-0 bg-white/75 backdrop-blur z-10'>
       <nav className='flex gap-4 justify-between items-center w-[95%] md:w-4/5 mx-auto'>
         <Link to='/' className='size-16'>
           <picture>
