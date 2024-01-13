@@ -1,18 +1,39 @@
-import type { MetaFunction } from '@remix-run/node'
+import { json, type LoaderFunction, type MetaFunction } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+
+import { parseCookies } from '~/lib/parse-cookies'
+import { Result } from '~/types/api'
+import ListOfCharacters from '~/components/ListOfCharacters'
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'New Remix App' },
+    { title: 'Rick And Morty | Favoritos' },
     { name: 'description', content: 'Welcome to Remix!' },
   ]
 }
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const cookies = request.headers.get('Cookie')
+  const favorites = parseCookies<Result[]>(cookies)
+
+  return json({
+    favorites: favorites ?? []
+  })
+}
+
+interface LoaderData {
+  favorites: Result[]
+}
+
 export default function Favorites() {
+  const { favorites } = useLoaderData<LoaderData>()
+
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.8' }}>
-      <h1 className='text-xl font-bold text-center'>
-        Favoritos
-      </h1>
-    </div>
+    <>
+      <ListOfCharacters
+        characters={favorites}
+        favorites={favorites}
+      />
+    </>
   )
 }

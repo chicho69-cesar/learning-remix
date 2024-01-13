@@ -48,10 +48,7 @@ export default function Index() {
   const navigation = useNavigation()
 
   return (
-    <main
-      style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.8' }}
-      className='w-[95%] md:w-4/5 mx-auto pt-4 pb-8'
-    >
+    <>
       <SearchBar query={query} />
 
       {navigation.state === 'loading' ? (
@@ -62,6 +59,6 @@ export default function Index() {
           favorites={favorites}
         />
       )}
-    </main>
+    </>
   )
 }

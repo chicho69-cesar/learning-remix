@@ -32,7 +32,12 @@ export default function App() {
       <body className='bg-gray-50'>
         <Header />
 
-        <Outlet />
+        <main
+          style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.8' }}
+          className='w-[95%] md:w-4/5 mx-auto pt-4 pb-8'
+        >
+          <Outlet />
+        </main>
 
         <ScrollRestoration />
         <Scripts />
