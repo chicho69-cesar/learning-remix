@@ -1,3 +1,6 @@
+import type { Credentials, CredentialsNotRequired } from '~/types/auth.d'
+import type { ExpenseInput, ExpenseInputNotRequired } from '~/types/expenses.d'
+
 function isValidTitle(value: string) {
   return value && value.trim().length > 0 && value.trim().length <= 30
 }
@@ -11,10 +14,8 @@ function isValidDate(value: string) {
   return value && new Date(value).getTime() < new Date().getTime()
 }
 
-interface Input { title: string, amount: string | number, date: string }
-export function validateExpenseInput(input: Input) {
-  type InputErrors = { [P in keyof Input]?: Input[P] }
-  let validationErrors: InputErrors = {}
+export function validateExpenseInput(input: ExpenseInput) {
+  let validationErrors: ExpenseInputNotRequired = {}
 
   if (!isValidTitle(input.title)) {
     validationErrors.title = 'Invalid expense title. Must be at most 30 characters long.'
@@ -41,9 +42,8 @@ function isValidPassword(value: string) {
   return value && value.trim().length >= 7
 }
 
-interface Credentials { email: string, password: string }
 export function validateCredentials(input: Credentials) {
-  let validationErrors: { [P in keyof Credentials]?: string } = {}
+  let validationErrors: CredentialsNotRequired = {}
 
   if (!isValidEmail(input.email)) {
     validationErrors.email = 'Invalid email address.'
