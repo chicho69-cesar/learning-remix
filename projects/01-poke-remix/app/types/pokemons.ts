@@ -18,6 +18,5 @@ export interface Pokemon {
 }
 
 export interface Sprites {
-  front_default: string
-  back_default:  string
+  [key: string]: any
 }
