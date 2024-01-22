@@ -1,8 +1,9 @@
-import { hash, compare } from 'bcryptjs'
+import bcrypt from 'bcryptjs'
 import { createCookieSessionStorage, redirect } from '@remix-run/node'
 
 import { prisma } from './database.server'
 import type { Credentials } from '~/types/auth.d'
+import { AuthError } from '~/types/error'
 
 const SESSION_SECRET = process.env.SESSION_SECRET || 'ThisWasNotLoaded'
 
@@ -62,17 +63,11 @@ export async function signUp({ email, password }: Credentials) {
   const existingUser = await prisma.user.findFirst({ where: { email } })
 
   if (existingUser) {
-    const error = new Error(
-      'A user with this email already exists.',
-      {
-        cause: { status: 422 }
-      }
-    )
-
+    const error = new AuthError('A user with this email already exists.', 422)
     throw error
   }
 
-  const passwordHash = await hash(password, 12)
+  const passwordHash = await bcrypt.hash(password, 12)
 
   const user = await prisma.user.create({
     data: { email, password: passwordHash }
@@ -85,17 +80,11 @@ export async function signIn({ email, password }: Credentials) {
   const existingUser = await prisma.user.findFirst({ where: { email } })
 
   if (!existingUser) {
-    const error = new Error(
-      'Could not log you in, please check the provided credentials.',
-      {
-        cause: { status: 401 }
-      }
-    )
-
+    const error = new AuthError('Could not log you in, please check the provided credentials.', 401)
     throw error
   }
 
-  const passwordCorrect = await compare(password, existingUser.password)
+  const passwordCorrect = await bcrypt.compare(password, existingUser.password)
 
   if (!passwordCorrect) {
     const error = new Error(
